@@ -1,0 +1,72 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <a class="navbar-brand" href="{{ url('hello', {'id': '3'}, {'foo': 'bar'}, 'fragment') }}">
+        <h1>Hello</h1>
+    </a>
+    <a class="navbar-brand" href="{{ asset('/apple', version=3) }}">
+        <h1>Apple</h1>
+    </a>
+    <div class="jumbotron d-flex justify-content-between">
+        <h1>Welcome to <span class="mezzio-green">Crud</span></h1>
+        <button class="btn btn-success addNewUser" href="" data-toggle="modal" data-target="#myModal">Add new User</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+                {%  include '@layout/modal.html.twig' %}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% set count = 0 %}
+                {% for info in data  %}
+                    <tr>
+                        <td>
+                            {% set count = count + 1 %}
+                            {{ count }}
+                        </td>
+                        <td>
+                            <img
+                                    src="{{ absolute_url(asset("/images/" ~ info['image'] )) }}"
+                                    alt="img"
+                                    class="img rounded-circle"
+                            />
+                        </td>
+                        <td>{{ info['username'] }}</td>
+                        <td>{{ info['email'] }}</td>
+                        <td>{{ info['date']|date('H:i d/m/Y') }}</td>
+                        <td>
+                            <a href="" data-toggle="modal" data-target="#myModalSelected" class="btn btn-primary edit">Edit</a>
+
+                            {%  include '@layout/selected-modal.html.twig' %}
+
+                            {% set id = info['id'] %}
+                            <a href="{{ url('delete', {'id': '5'}, {'userId': id}) }}" class="btn btn-danger delete">Delete</a>
+
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

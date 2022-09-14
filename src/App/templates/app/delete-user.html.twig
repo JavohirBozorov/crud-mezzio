@@ -1,0 +1,16 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}Apple{% endblock %}
+
+{% block content %}
+    <a class="navbar-brand" href="{{ asset('/') }}">
+        <h1>Home</h1>
+    </a>
+
+    <a class="navbar-brand" href="{{ absolute_url('/hello') }}">
+        <h1>Hello</h1>
+    </a>
+
+    <div class="alert alert-success" role="alert">You successfully deleted!</div>
+
+{% endblock content %}

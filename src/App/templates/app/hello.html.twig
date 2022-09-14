@@ -1,0 +1,13 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}Apple{% endblock %}
+
+{% block content %}
+    <a class="navbar-brand" href="{{ asset('/') }}">
+        <h1>Home</h1>
+    </a>
+
+    <a class="navbar-brand" href="{{ absolute_url('/apple') }}">
+        <h1>Apple</h1>
+    </a>
+{% endblock content %}

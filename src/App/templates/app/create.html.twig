@@ -1,0 +1,18 @@
+{% extends '@layout/default.html.twig' %}
+
+{% block title %}Create{% endblock %}
+
+{% block content %}
+    <a class="navbar-brand" href="{{ asset('/') }}">
+        <h1>Home</h1>
+    </a>
+
+    <a class="navbar-brand" href="{{ absolute_url('/hello') }}">
+        <h1>Hello</h1>
+    </a>
+    {% if values == true  %}
+        <div class="alert alert-success" role="alert">You successfully added!</div>
+    {% else %}
+        <div class="alert alert-danger">Opps! Some content error!</div>
+    {% endif %}
+{% endblock content %}
