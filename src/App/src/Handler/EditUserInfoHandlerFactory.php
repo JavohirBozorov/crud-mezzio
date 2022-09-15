@@ -11,6 +11,7 @@ class EditUserInfoHandlerFactory
 {
     public function __invoke(ContainerInterface $container) : EditUserInfoHandler
     {
-        return new EditUserInfoHandler($container->get(TemplateRendererInterface::class));
+        $data = new MyPdo();
+        return new EditUserInfoHandler($container->get(TemplateRendererInterface::class), $data);
     }
 }

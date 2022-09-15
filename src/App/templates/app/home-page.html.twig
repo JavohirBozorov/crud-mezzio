@@ -13,14 +13,8 @@
         <h1>Welcome to <span class="mezzio-green">Crud</span></h1>
         <button class="btn btn-success addNewUser" href="" data-toggle="modal" data-target="#myModal">Add new User</button>
 
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog">
+        {%  include '@layout/modal.html.twig' %}
 
-                {%  include '@layout/modal.html.twig' %}
-
-            </div>
-        </div>
     </div>
 
     <div class="row">
@@ -55,11 +49,12 @@
                         <td>{{ info['email'] }}</td>
                         <td>{{ info['date']|date('H:i d/m/Y') }}</td>
                         <td>
-                            <a href="" data-toggle="modal" data-target="#myModalSelected" class="btn btn-primary edit">Edit</a>
-
-                            {%  include '@layout/selected-modal.html.twig' %}
-
                             {% set id = info['id'] %}
+
+                            <a href="{{ absolute_url('edit?id=' ~ id) }}" data-target="#myModalSelected" class="btn btn-primary edit">Edit</a>
+
+{#                            {%  include '@layout/selected-modal.html.twig' %}#}
+
                             <a href="{{ url('delete', {'id': '5'}, {'userId': id}) }}" class="btn btn-danger delete">Delete</a>
 
                         </td>

@@ -1,6 +1,6 @@
 {% extends '@layout/default.html.twig' %}
 
-{% block title %}Template for App\Handler\EditUserInfoHandler{% endblock %}
+{% block title %}EditUserInfoHandler{% endblock %}
 
 {% block content %}
     <a class="navbar-brand" href="{{ asset('/') }}">
@@ -10,7 +10,39 @@
     <a class="navbar-brand" href="{{ absolute_url('/hello') }}">
         <h1>Hello</h1>
     </a>
+    <hr>
+    {% if postData is empty %}
 
+        {% for info in getData %}
 
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Change User Information</h4>
+            </div>
 
+            {% set id = info['id'] %}
+            <form enctype="multipart/form-data" name="upload-form" action="{{ absolute_url('?id=' ~ id) }}" method="post" class="row modal-body input-group">
+                <div class="form-group col-12 mb-3">
+                    <label for="image">Choose a new file</label>
+                    <input type="file" name="image" class="form-control-file" id="image" value="{{ info['image'] }}">
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control username" name="username" id="username" placeholder="Username" value="{{ info['username'] }}">
+                </div>
+                <div class="col-12 mb-3">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control email" id="email" name="email" placeholder="Email" value="{{ info['email'] }}">
+                </div>
+                <div class="col-12 mb-3">
+                    <input type="submit" class="btn btn-primary btn-block submit" id="submit">
+                </div>
+            </form>
+        </div>
+
+        {% endfor %}
+    {% endif %}
+    {% if getData is empty %}
+        <div class="alert alert-success">You have successfully changed!</div>
+    {% endif %}
 {% endblock content %}

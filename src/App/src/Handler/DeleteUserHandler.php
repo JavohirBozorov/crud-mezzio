@@ -35,7 +35,7 @@ class DeleteUserHandler implements RequestHandlerInterface
         $this->db->run("DELETE FROM users WHERE id = \"$id\"")->fetchAll(\PDO::FETCH_ASSOC);
 
 //        echo '<pre>';
-//        var_dump($query["userIdNumber"]);
+//        var_dump($query["userId"]);
 //        echo '</pre>';
 //        exit();
 
