@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -48,11 +49,26 @@ class EditUserInfoHandler implements RequestHandlerInterface
             $email = $dataFromInput['email'];
             $getData = null;
 
-            $postData = $this->db->run(
-                "UPDATE users
-                     SET image = \"$image\", username = \"$name\", email = \"$email\" 
+            if (empty($name) || empty($email)){
+                return new RedirectResponse('apple');
+                exit();
+            }
+
+            if($image !== '' ){
+                $fileFromInput->moveTo('/var/www/html/public/images/' . $fileFromInput->getClientFileName());
+
+                $postData = $this->db->run(
+                    "UPDATE users
+                     SET username = \"$name\", email = \"$email\", image = \"$image\"
                      WHERE id = \"$id\" ")->fetchAll(\PDO::FETCH_ASSOC);
+            } else {
+                $postData = $this->db->run(
+                    "UPDATE users
+                     SET username = \"$name\", email = \"$email\"
+                     WHERE id = \"$id\" ")->fetchAll(\PDO::FETCH_ASSOC);
+            }
         }
+
         return new HtmlResponse($this->renderer->render(
             'app::edit-user-info',[
                 'getData' => $getData,

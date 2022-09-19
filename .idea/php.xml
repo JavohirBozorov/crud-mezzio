@@ -80,6 +80,10 @@
       <path value="$PROJECT_DIR$/vendor/laminas/laminas-hydrator" />
       <path value="$PROJECT_DIR$/vendor/laminas/laminas-inputfilter" />
       <path value="$PROJECT_DIR$/vendor/laminas/laminas-filter" />
+      <path value="$PROJECT_DIR$/vendor/mezzio/mezzio-flash" />
+      <path value="$PROJECT_DIR$/vendor/mezzio/mezzio-session" />
+      <path value="$PROJECT_DIR$/vendor/dflydev/fig-cookies" />
+      <path value="$PROJECT_DIR$/vendor/mezzio/mezzio-session-ext" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.0" />

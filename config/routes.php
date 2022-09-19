@@ -43,7 +43,10 @@ return static function (Application $app, MiddlewareFactory $factory, ContainerI
 
     $app->get('/hello', App\Handler\HelloHandler::class, 'hello');
     $app->route('/apple', App\Handler\AppleHandler::class, ["POST", "GET"], 'apple');
-    $app->route('/create', App\Handler\CreateHandler::class, ["POST", "GET"], 'create');
+    $app->route('/create', [
+        \Mezzio\Session\SessionMiddleware::class,
+        \Mezzio\Flash\FlashMessageMiddleware::class,
+        App\Handler\CreateHandler::class], ["POST", "GET"], 'create');
     $app->route('/delete', App\Handler\DeleteUserHandler::class, ["POST", "GET", "DELETE"], 'delete');
     $app->route('/edit', App\Handler\EditUserInfoHandler::class, ["POST", "GET", "DELETE", "PATCH"],'edit');
 };

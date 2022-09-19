@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Handler;
 
+use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
+use Mezzio\Flash\FlashMessageMiddleware;
+use Mezzio\Template\TemplateRendererInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Laminas\Diactoros\Response\HtmlResponse;
-use Mezzio\Template\TemplateRendererInterface;
-use App\Handler\UploadForm;
 
 class CreateHandler implements RequestHandlerInterface
 {
@@ -30,40 +30,46 @@ class CreateHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request) : ResponseInterface
     {
+        $values = $request->getParsedBody();
+        $username = $values['username'];
+        $email = $values['email'];
 
-        $form = new UploadForm('upload-form');
-
-        if ($request->getMethod() == "POST") {
-
-            $values = $request->getParsedBody();
-            $username = $values['username'];
-            $email = $values['email'];
-
+        if($request->getUploadedFiles()['image']->getClientFileName() !== ''){
             $file = $request->getUploadedFiles()['image'];
+
             $image = $file->getClientFileName();
+
+            $ext = pathinfo($image, PATHINFO_EXTENSION);
+        } else {
+            return new RedirectResponse('apple');
+            exit();
+        }
+
+        if (!empty(trim($email)) && !empty(trim($username)) && ($ext === 'jpg' || 'jpeg' || 'png' || 'svg')) {
+
             $file->moveTo('/var/www/html/public/images/' . $file->getClientFileName());
 
             $this->db->run("INSERT INTO users (image, username, email) VALUES (\"$image\", \"$username\", \"$email\")")->fetchAll(\PDO::FETCH_ASSOC);
 
-//            Make certain to merge the $_FILES info!
-//            $post = array_merge_recursive(
-//                $request->getParsedBody(),
-//                $request->getUploadedFiles(),
-//            );
-
-//            $form->setData($post);
-//            if ($form->isValid()) {
-//                $data = $form->getData();
-//;
-//                return new RedirectResponse('apple');
-//            }
+            $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
+            $messageName = 'form-successfully';
+            $messageValue = 'Thank you! New user has added.';
+            $flashMessages->flash($messageName, $messageValue);
+            $message = $flashMessages->getFlash($messageName);
+        } else {
+//            $flashMessages = $request->getAttribute(FlashMessageMiddleware::FLASH_ATTRIBUTE);
+//            $messageName = 'form-unsuccessfully';
+//            $messageValue = 'Ops; Some content was empty or your image is not invalid.';
+//            $flashMessages->flash($messageName, $messageValue);
+//            $message = $flashMessages->getFlash($messageName);
+            return new RedirectResponse('apple');
+            exit();
         }
-
 
         return new HtmlResponse($this->renderer->render(
             'app::create', [
-            "values" => $values,
-            'form' => $form,] // parameters to pass to template
+            'message' => $message
+            ] // parameters to pass to template
         ));
     }
 }

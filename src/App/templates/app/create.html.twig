@@ -10,9 +10,8 @@
     <a class="navbar-brand" href="{{ absolute_url('/hello') }}">
         <h1>Hello</h1>
     </a>
-    {% if values == true  %}
-        <div class="alert alert-success" role="alert">You successfully added!</div>
-    {% else %}
-        <div class="alert alert-danger">Opps! Some content error!</div>
-    {% endif %}
+
+        <div class="alert alert-primary">
+            <h4 class="text-black">{{ message }}</h4>
+        </div>
 {% endblock content %}

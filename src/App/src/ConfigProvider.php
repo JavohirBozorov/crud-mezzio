@@ -41,7 +41,8 @@ class ConfigProvider
                 Handler\AppleHandler::class => Handler\AppleHandlerFactory::class,
                 Handler\HelloHandler::class => Handler\HelloHandlerFactory::class,
                 Handler\DeleteUserHandler::class => Handler\DeleteUserHandlerFactory::class,
-                Handler\EditUserInfoHandler::class => Handler\EditUserInfoHandlerFactory::class
+                Handler\EditUserInfoHandler::class => Handler\EditUserInfoHandlerFactory::class,
+
             ],
         ];
     }

@@ -85,6 +85,10 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-hydrator" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-inputfilter" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/laminas/laminas-filter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mezzio/mezzio-flash" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mezzio/mezzio-session" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/dflydev/fig-cookies" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/mezzio/mezzio-session-ext" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -53,7 +53,10 @@
         "laminas/laminas-stdlib": "^3.6",
         "mezzio/mezzio": "^3.7",
         "mezzio/mezzio-fastroute": "^3.0.3",
+        "mezzio/mezzio-flash": "^1.5",
         "mezzio/mezzio-helpers": "^5.7",
+        "mezzio/mezzio-session": "^1.11",
+        "mezzio/mezzio-session-ext": "^1.13",
         "mezzio/mezzio-twigrenderer": "^2.6"
     },
     "require-dev": {

@@ -11,6 +11,7 @@ class CreateHandlerFactory
 {
     public function __invoke(ContainerInterface $container) : CreateHandler
     {
-        return new CreateHandler($container->get(TemplateRendererInterface::class));
+        return new CreateHandler(
+            $container->get(TemplateRendererInterface::class));
     }
 }
